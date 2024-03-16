@@ -1,0 +1,15 @@
+// 1.20.1	2024-03-16T13:28:40.4566295	Squaremobility/Registrate Provider for squaremobility [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+76da876a91660f50077be6b209511ffe0d3e2976 assets\squaremobility\models\item\vehicle_anchor.json
+5e61b68a51aef75a07f62fff8839a23e18333387 assets\squaremobility\models\block\moving_vehicle_anchor.json
+bb2a1a8493a2ab7db1d769a083ec55099ea0f23b assets\squaremobility\models\block\query_block.json
+df859c7ee4f96e9d0741512f56ec86fb7771c75e assets\squaremobility\blockstates\query_block.json
+50d010aede236b496251c63ef68a5383f667c7b2 assets\squaremobility\lang\en_us.json
+0f8458c746b0b7bd27080bff21316c52b459f573 assets\squaremobility\blockstates\vehicle_anchor.json
+e2f1e869dc45ee99d7ed052105f810e6b178253d data\squaremobility\loot_tables\blocks\vehicle_anchor.json
+e7cd36218084dccab0d0f6c99309663def255b12 data\squaremobility\loot_tables\blocks\moving_vehicle_anchor.json
+1d5932de1acb3aeecf6e37e40a5fb7d936e1df25 data\squaremobility\loot_tables\blocks\query_block.json
+4c6c9bf1235b1a64a979dbc8973e83682c1cb297 assets\squaremobility\models\block\vehicle_anchor.json
+792c1ec27a96d886a40c5a5e4b97de3a539e5709 data\minecraft\tags\blocks\mineable\pickaxe.json
+d23f0a59771351908b3d6a72c45219d95b30a366 assets\squaremobility\lang\en_ud.json
+a82fb64774a0d1087861c2abefdb8ecd9cef4c86 assets\squaremobility\blockstates\moving_vehicle_anchor.json
+fb6f371416adf7a90289f8c914ae83de4c917bf8 assets\squaremobility\models\item\query_block.json

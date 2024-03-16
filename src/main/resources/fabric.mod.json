@@ -1,25 +1,26 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "squaremobility",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Squaremobility",
+  "description": "Travel options for people who like low quality mods",
   "authors": [
-    "Me!"
+    "Farpo (SasaElele) : Owner"
   ],
   "contact": {
-    "sources": "https://github.com/Fabricators-of-Create/create-fabric-addon-template"
+    "sources": "https://github.com/ansquare-eu/squaremobility"
   },
   "license": "CC0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/squaremobility/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.example.modid.ExampleMod"
-    ]
+      "eu.ansquare.squaremobility.Squaremobility"
+    ],
+    "fabric-datagen":  ["eu.ansquare.squaremobility.ModDatagen"]
   },
   "mixins": [
-    "modid.mixins.json"
+    "squaremobility.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "squaremobility:block/query_block"
+    }
+  }
+}

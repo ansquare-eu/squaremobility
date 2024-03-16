@@ -1,0 +1,84 @@
+package eu.ansquare.squaremobility.blocks;
+
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.contraptions.AssemblyException;
+import com.simibubi.create.content.contraptions.OrientedContraptionEntity;
+import com.simibubi.create.content.contraptions.minecart.capability.MinecartController;
+import com.simibubi.create.content.contraptions.mounted.CartAssemblerBlock;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+
+import com.simibubi.create.foundation.utility.Couple;
+import com.simibubi.create.foundation.utility.Iterate;
+
+import eu.ansquare.squaremobility.Squaremobility;
+import eu.ansquare.squaremobility.VehicleContraption;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.UUID;
+
+public class VehicleAnchorBlockEntity extends SmartBlockEntity {
+	protected AssemblyException lastException;
+
+	public VehicleAnchorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
+	}
+
+	@Override
+	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+
+	}
+	public void tryAssemble(PlayerEntity user){
+		if(user.hasPassengers()){
+			disassemble(world, pos);
+		} else {
+			assemble(user, world, pos);
+		}
+	}
+	protected void assemble(PlayerEntity assembler, World world, BlockPos pos) {
+		VehicleContraption contraption = new VehicleContraption();
+
+		try {
+			if (!contraption.assemble(world, pos))
+				return;
+
+			lastException = null;
+			sendData();
+		} catch (AssemblyException e) {
+
+			lastException = e;
+			sendData();
+			return;
+		}
+		contraption.removeBlocksFromWorld(world, BlockPos.ORIGIN);
+		contraption.startMoving(world);
+		contraption.expandBoundsAroundAxis(Direction.Axis.Y);
+		OrientedContraptionEntity entity = OrientedContraptionEntity.create(world, contraption, Direction.NORTH);
+		entity.setPosition(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
+		world.spawnEntity(entity);
+
+		entity.startRiding(assembler);
+		Squaremobility.LOGGER.warn(String.valueOf(assembler.getPassengerList().size()));
+	}
+	protected void disassemble(World world, BlockPos pos) {
+		Entity entity = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10, entity1 -> true);
+		if (!(entity instanceof OrientedContraptionEntity))
+			return;
+		OrientedContraptionEntity contraption = (OrientedContraptionEntity) entity;
+		entity.removeAllPassengers();
+
+
+
+	}
+}
