@@ -1,5 +1,6 @@
 package eu.ansquare.squaremobility;
 
+import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.Create;
 
 import com.simibubi.create.content.contraptions.ContraptionType;
@@ -31,7 +32,9 @@ public class Squaremobility implements ModInitializer {
 	}
 	private void init(){
 		VEHICLE = ContraptionType.register("vehicle", VehicleContraption::new);
+		REGISTRATE.useCreativeTab(AllCreativeModeTabs.MAIN_TAB.key());
 		ModBlocks.init();
+		ModEntityTypes.init();
 		REGISTRATE.register();
 	}
 	public static Identifier id(String path) {

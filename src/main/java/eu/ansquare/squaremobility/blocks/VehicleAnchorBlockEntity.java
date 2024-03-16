@@ -11,6 +11,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.utility.Couple;
 import com.simibubi.create.foundation.utility.Iterate;
 
+import eu.ansquare.squaremobility.MobileContraptionEntity;
 import eu.ansquare.squaremobility.Squaremobility;
 import eu.ansquare.squaremobility.VehicleContraption;
 import net.minecraft.block.Block;
@@ -40,9 +41,7 @@ public class VehicleAnchorBlockEntity extends SmartBlockEntity {
 
 	}
 	public void tryAssemble(PlayerEntity user){
-		if(user.hasPassengers()){
-			disassemble(world, pos);
-		} else {
+		if(!user.hasPassengers()){
 			assemble(user, world, pos);
 		}
 	}
@@ -64,11 +63,12 @@ public class VehicleAnchorBlockEntity extends SmartBlockEntity {
 		contraption.removeBlocksFromWorld(world, BlockPos.ORIGIN);
 		contraption.startMoving(world);
 		contraption.expandBoundsAroundAxis(Direction.Axis.Y);
-		OrientedContraptionEntity entity = OrientedContraptionEntity.create(world, contraption, Direction.NORTH);
+		MobileContraptionEntity entity = MobileContraptionEntity.create(world, contraption, Direction.NORTH);
 		entity.setPosition(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
+		entity.startRiding(assembler);
+
 		world.spawnEntity(entity);
 
-		entity.startRiding(assembler);
 		Squaremobility.LOGGER.warn(String.valueOf(assembler.getPassengerList().size()));
 	}
 	protected void disassemble(World world, BlockPos pos) {

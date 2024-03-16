@@ -57,13 +57,5 @@ public class VehicleContraption extends Contraption {
 	public ContraptionLighter<?> makeLighter() {
 		return new NonStationaryLighter<>(this);
 	}
-	@Override
-	protected boolean customBlockPlacement(WorldAccess world, BlockPos pos, BlockState state) {
-		return ModBlocks.MOVING_VEHICLE_ANCHOR.has(state);
-	}
 
-	@Override
-	protected boolean customBlockRemoval(WorldAccess world, BlockPos pos, BlockState state) {
-		return ModBlocks.MOVING_VEHICLE_ANCHOR.has(state);
-	}
 }
