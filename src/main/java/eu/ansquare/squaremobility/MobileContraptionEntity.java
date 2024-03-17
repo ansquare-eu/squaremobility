@@ -56,6 +56,11 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		super.tickContraption();
 		move(MovementType.SELF, getVelocity());
 		this.contraption.anchor = this.getBlockPos();
+		this.prevYaw = this.yaw;
+		this.prevPitch = this.pitch;
+		this.yaw = this.getYaw();
+		this.pitch = this.getPitch();
+
 	}
 	public void move(MovementType movementType, Vec3d movement) {
 		this.setPosition(this.getX() + movement.x, this.getY() + movement.y, this.getZ() + movement.z);
@@ -96,6 +101,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		setContraptionMotion(motionIn);
 
 	}
+
 	@Override
 	public boolean control(BlockPos controlsLocalPos, Collection<Integer> heldControls, PlayerEntity player) {
 		setVelocity(0, 0, 0);
@@ -115,9 +121,9 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 			targetSpeed--;
 
 		int targetSteer = 0;
-		if (heldControls.contains(3))
-			targetSteer++;
 		if (heldControls.contains(2))
+			targetSteer++;
+		if (heldControls.contains(3))
 			targetSteer--;
 		if(targetSteer == 0 && steerAngle != 0){
 			if(steerAngle > 0) steerAngle -= 0.5;
@@ -137,22 +143,23 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		forwardSpeed= MathHelper.clamp(forwardSpeed, -10, 10);
 
 		float wheelBase = 3.0f;
+		Vec3d vec3d = getVelocity().add(targetSpeed, 0, 0);
+
 		if(steerAngle != 0) {
-			startAtYaw(90);
 			float turningRadius = MathHelper.sin((float) Math.toRadians(steerAngle));
-			float distanceInTick = (float) (getVelocity().length() * tickDuration);
+			float distanceInTick = (float) (vec3d.length() * tickDuration);
+			float f = distanceInTick / turningRadius;
 			float velocityAngleChange = (float) Math.toDegrees(Math.asin(distanceInTick / turningRadius));
-			player.setYaw(getYaw());
-			Squaremobility.LOGGER.info( getYaw() + " and angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
+			Squaremobility.LOGGER.info("angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
+			setYaw(MathHelper.clamp(getYaw() + velocityAngleChange, -180, 180));
+			vec3d = vec3d.rotateY(velocityAngleChange);
 
 		} else {
-			startAtYaw(0);
 
-			Squaremobility.LOGGER.info( getYaw() + " and angle is " + steerAngle + " sin of 90" + MathHelper.sin(90f) );
 
 		}
 
-		//setVelocity(vec3d);
+		setVelocity(vec3d);
 		velocityModified = true;
 
 		boolean spaceDown = heldControls.contains(4);
