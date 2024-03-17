@@ -15,7 +15,6 @@ public class MobileContraptionEntityRenderer extends ContraptionEntityRenderer<M
 	@Override
 	public void render(MobileContraptionEntity entity, float yaw, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int overlay) {
 		super.render(entity, yaw, partialTicks, ms, buffers, overlay);
-		Squaremobility.LOGGER.warn("yes render at");
 	}
 
 	@Override

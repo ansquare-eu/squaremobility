@@ -41,9 +41,8 @@ public class VehicleAnchorBlockEntity extends SmartBlockEntity {
 
 	}
 	public void tryAssemble(PlayerEntity user){
-		if(!user.hasPassengers()){
-			assemble(user, world, pos);
-		}
+		assemble(user, world, pos);
+
 	}
 	protected void assemble(PlayerEntity assembler, World world, BlockPos pos) {
 		VehicleContraption contraption = new VehicleContraption();
@@ -62,10 +61,10 @@ public class VehicleAnchorBlockEntity extends SmartBlockEntity {
 		}
 		contraption.removeBlocksFromWorld(world, BlockPos.ORIGIN);
 		contraption.startMoving(world);
-		contraption.expandBoundsAroundAxis(Direction.Axis.Y);
+		//contraption.expandBoundsAroundAxis(Direction.Axis.Y);
 		MobileContraptionEntity entity = MobileContraptionEntity.create(world, contraption, Direction.NORTH);
 		entity.setPosition(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
-		entity.startRiding(assembler);
+		//entity.startRiding(assembler);
 
 		world.spawnEntity(entity);
 

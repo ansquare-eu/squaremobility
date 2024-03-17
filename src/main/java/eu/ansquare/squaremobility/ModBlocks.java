@@ -34,10 +34,6 @@ public class ModBlocks {
 			.blockEntity("vehicle_anchor", VehicleAnchorBlockEntity::new)
 			.validBlocks(VEHICLE_ANCHOR)
 			.register();
-	public static final BlockEntry<VehicleAnchorBlock.MovingVehicleAnchor> MOVING_VEHICLE_ANCHOR =
-			REGISTRATE.block("moving_vehicle_anchor", VehicleAnchorBlock.MovingVehicleAnchor::new)
-					.initialProperties(SharedProperties::stone)
-					.register();
 	public static final BlockEntry<QueryBlock> QUERY_BLOCK =
 			REGISTRATE.block("query_block", QueryBlock::new)
 					.initialProperties(SharedProperties::wooden)

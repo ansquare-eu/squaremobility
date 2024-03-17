@@ -28,8 +28,8 @@ public class VehicleContraption extends Contraption {
 		BlockState state = world.getBlockState(pos);
 		if (!searchMovedStructure(world, pos, null))
 			return false;
-		addBlock(pos, Pair.of(new Structure.StructureBlockInfo(pos, ModBlocks.MOVING_VEHICLE_ANCHOR.getDefaultState(), null), null));
-		Squaremobility.LOGGER.warn(String.valueOf(blocks.size()) + " blocks");
+		addBlock(pos, Pair.of(new Structure.StructureBlockInfo(pos, ModBlocks.VEHICLE_ANCHOR.getDefaultState(), null), null));
+
 
 
 
@@ -52,6 +52,12 @@ public class VehicleContraption extends Contraption {
 	protected boolean addToInitialFrontier(World world, BlockPos pos, Direction direction, Queue<BlockPos> frontier) {
 		frontier.clear();
 		frontier.add(pos.up());
+		frontier.add(pos.down());
+		frontier.add(pos.west());
+		frontier.add(pos.east());
+		frontier.add(pos.north());
+		frontier.add(pos.south());
+
 		return true;
 	}
 	public ContraptionLighter<?> makeLighter() {

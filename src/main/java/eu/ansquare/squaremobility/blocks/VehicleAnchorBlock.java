@@ -4,6 +4,7 @@ import com.simibubi.create.content.contraptions.mounted.CartAssembleRailType;
 import com.simibubi.create.foundation.block.IBE;
 
 import eu.ansquare.squaremobility.ModBlocks;
+import eu.ansquare.squaremobility.ModItems;
 import eu.ansquare.squaremobility.Squaremobility;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -38,13 +39,11 @@ public class VehicleAnchorBlock extends Block implements IBE<VehicleAnchorBlockE
 	public ActionResult onUse(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, PlayerEntity player,
 							  @Nonnull Hand hand, @Nonnull BlockHitResult blockRayTraceResult) {
 		if(world.isClient) return ActionResult.PASS;
-		withBlockEntityDo(world, pos, be -> be.tryAssemble(player));
+		if(!player.getStackInHand(hand).isOf(ModItems.CAR_DISASSEMBLER.get())) {
+			withBlockEntityDo(world, pos, be -> be.tryAssemble(player));
+			return ActionResult.SUCCESS;
+		}
 		return ActionResult.PASS;
 	}
-	public static class MovingVehicleAnchor extends Block{
 
-		public MovingVehicleAnchor(Settings settings) {
-			super(settings);
-		}
-	}
 }

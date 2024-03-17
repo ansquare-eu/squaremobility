@@ -1,5 +1,7 @@
 {
   "block.squaremobility.moving_vehicle_anchor": "Moving Vehicle Anchor",
   "block.squaremobility.query_block": "Query block",
-  "block.squaremobility.vehicle_anchor": "Vehicle anchor"
+  "block.squaremobility.vehicle_anchor": "Vehicle anchor",
+  "entity.squaremobility.mobile_contraption": "Mobile Contraption",
+  "item.squaremobility.car_disassembler": "Car disassembler"
 }

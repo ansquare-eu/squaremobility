@@ -34,6 +34,7 @@ public class Squaremobility implements ModInitializer {
 		VEHICLE = ContraptionType.register("vehicle", VehicleContraption::new);
 		REGISTRATE.useCreativeTab(AllCreativeModeTabs.MAIN_TAB.key());
 		ModBlocks.init();
+		ModItems.init();
 		ModEntityTypes.init();
 		REGISTRATE.register();
 	}

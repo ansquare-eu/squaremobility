@@ -1,5 +1,7 @@
 {
   "block.squaremobility.moving_vehicle_anchor": "ɹoɥɔuⱯ ǝןɔıɥǝΛ buıʌoW",
   "block.squaremobility.query_block": "ʞɔoןq ʎɹǝnὉ",
-  "block.squaremobility.vehicle_anchor": "ɹoɥɔuɐ ǝןɔıɥǝΛ"
+  "block.squaremobility.vehicle_anchor": "ɹoɥɔuɐ ǝןɔıɥǝΛ",
+  "entity.squaremobility.mobile_contraption": "uoıʇdɐɹʇuoƆ ǝןıqoW",
+  "item.squaremobility.car_disassembler": "ɹǝןqɯǝssɐsıp ɹɐƆ"
 }
