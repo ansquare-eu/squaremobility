@@ -57,7 +57,6 @@ public class VehicleContraption extends Contraption {
 		frontier.add(pos.east());
 		frontier.add(pos.north());
 		frontier.add(pos.south());
-
 		return true;
 	}
 	public ContraptionLighter<?> makeLighter() {
