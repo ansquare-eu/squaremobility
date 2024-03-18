@@ -46,7 +46,8 @@ public class VehicleAnchorBlockEntity extends SmartBlockEntity {
 	}
 	protected void assemble(PlayerEntity assembler, World world, BlockPos pos) {
 		VehicleContraption contraption = new VehicleContraption();
-
+		BlockState state = world.getBlockState(pos);
+		Direction direction = state.get(VehicleAnchorBlock.FACING);
 		try {
 			if (!contraption.assemble(world, pos))
 				return;
@@ -62,13 +63,12 @@ public class VehicleAnchorBlockEntity extends SmartBlockEntity {
 		contraption.removeBlocksFromWorld(world, BlockPos.ORIGIN);
 		contraption.startMoving(world);
 		//contraption.expandBoundsAroundAxis(Direction.Axis.Y);
-		MobileContraptionEntity entity = MobileContraptionEntity.create(world, contraption, Direction.NORTH);
+		MobileContraptionEntity entity = MobileContraptionEntity.create(world, contraption, direction);
 		entity.setPosition(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
 		//entity.startRiding(assembler);
 
 		world.spawnEntity(entity);
 
-		Squaremobility.LOGGER.warn(String.valueOf(assembler.getPassengerList().size()));
 	}
 	protected void disassemble(World world, BlockPos pos) {
 		Entity entity = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10, entity1 -> true);

@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "squaremobility:block/vehicle_anchor",
+      "y": 90
+    },
+    "facing=north": {
       "model": "squaremobility:block/vehicle_anchor"
+    },
+    "facing=south": {
+      "model": "squaremobility:block/vehicle_anchor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "squaremobility:block/vehicle_anchor",
+      "y": 270
     }
   }
 }

@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "all": "squaremobility:block/vehicle_anchor"
+    "bottom": "squaremobility:block/vehicle_anchor_top",
+    "side": "squaremobility:block/vehicle_anchor",
+    "top": "squaremobility:block/vehicle_anchor_top"
   }
 }

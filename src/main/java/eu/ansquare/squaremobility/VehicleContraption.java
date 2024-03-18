@@ -28,7 +28,7 @@ public class VehicleContraption extends Contraption {
 		BlockState state = world.getBlockState(pos);
 		if (!searchMovedStructure(world, pos, null))
 			return false;
-		addBlock(pos, Pair.of(new Structure.StructureBlockInfo(pos, ModBlocks.VEHICLE_ANCHOR.getDefaultState(), null), null));
+		addBlock(pos, Pair.of(new Structure.StructureBlockInfo(pos, state, null), null));
 
 
 

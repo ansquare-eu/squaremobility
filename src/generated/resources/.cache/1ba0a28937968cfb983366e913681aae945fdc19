@@ -1,16 +1,13 @@
-// 1.20.1	2024-03-17T09:29:26.6353404	Squaremobility/Registrate Provider for squaremobility [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
-76da876a91660f50077be6b209511ffe0d3e2976 assets\squaremobility\models\item\vehicle_anchor.json
+// 1.20.1	2024-03-18T21:02:27.2834637	Squaremobility/Registrate Provider for squaremobility [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 1a3d3e78b5dd15515ba9b6f77fbf65731ff7ef93 assets\squaremobility\models\item\car_disassembler.json
-5e61b68a51aef75a07f62fff8839a23e18333387 assets\squaremobility\models\block\moving_vehicle_anchor.json
+76da876a91660f50077be6b209511ffe0d3e2976 assets\squaremobility\models\item\vehicle_anchor.json
 bb2a1a8493a2ab7db1d769a083ec55099ea0f23b assets\squaremobility\models\block\query_block.json
 df859c7ee4f96e9d0741512f56ec86fb7771c75e assets\squaremobility\blockstates\query_block.json
 9961252cbb6960e72f6ab7c055965f222c12a9c0 assets\squaremobility\lang\en_us.json
-0f8458c746b0b7bd27080bff21316c52b459f573 assets\squaremobility\blockstates\vehicle_anchor.json
+401c2df2a81b5336dd97a5715f8f7e8514489b26 assets\squaremobility\blockstates\vehicle_anchor.json
 e2f1e869dc45ee99d7ed052105f810e6b178253d data\squaremobility\loot_tables\blocks\vehicle_anchor.json
-e7cd36218084dccab0d0f6c99309663def255b12 data\squaremobility\loot_tables\blocks\moving_vehicle_anchor.json
 1d5932de1acb3aeecf6e37e40a5fb7d936e1df25 data\squaremobility\loot_tables\blocks\query_block.json
-4c6c9bf1235b1a64a979dbc8973e83682c1cb297 assets\squaremobility\models\block\vehicle_anchor.json
+761b38026ac3e0019de2e5bda14d4ef6694f99ed assets\squaremobility\models\block\vehicle_anchor.json
 792c1ec27a96d886a40c5a5e4b97de3a539e5709 data\minecraft\tags\blocks\mineable\pickaxe.json
 9aa7982618da247de8f804fd8712a7717a135a0f assets\squaremobility\lang\en_ud.json
-a82fb64774a0d1087861c2abefdb8ecd9cef4c86 assets\squaremobility\blockstates\moving_vehicle_anchor.json
 fb6f371416adf7a90289f8c914ae83de4c917bf8 assets\squaremobility\models\item\query_block.json
