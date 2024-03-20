@@ -38,6 +38,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.structure.Structure;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -261,14 +262,14 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 			targetSpeed--;
 
 		int targetSteer = 0;
-		if (heldControls.contains(2))
-			targetSteer++;
 		if (heldControls.contains(3))
+			targetSteer++;
+		if (heldControls.contains(2))
 			targetSteer--;
-		if(targetSteer == 0 && steerAngle != 0){
+/*		if(targetSteer == 0 && steerAngle != 0){
 			if(steerAngle > 0) steerAngle -= 0.5;
 			if(steerAngle < 0) steerAngle += 0.5;
-		}
+		}*/
 		if(targetSpeed == 0 && forwardSpeed != 0){
 			if(forwardSpeed > 0) forwardSpeed -= 0.5;
 			if(forwardSpeed < 0) forwardSpeed += 0.5;
@@ -291,13 +292,15 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 			float f = distanceInTick / turningRadius;
 			float velocityAngleChange = (float) Math.toDegrees(Math.asin(distanceInTick / turningRadius));
 			LOGGER.info("angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
-			setYaw(MathHelper.clamp(steerAngle, -180, 180));
 			//vec3d = vec3d.rotateY(velocityAngleChange);
+			rotateYaw(targetSteer);
+			player.sendMessage(Text.literal("Yaw :" + getYaw()), true);
 
 		} else {
 
 
 		}
+
 		vec3d = VecHelper.rotate(vec3d, getYaw(), Direction.Axis.Y);
 
 		setVelocity(vec3d);
@@ -308,7 +311,17 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 
 		return true;
 	}
+	/** Don't call for yaw greater than 360 or lesser than -360 it may break**/
+	public void rotateYaw(float yaw){
+		float f = getYaw() + yaw;
+		if(f > 180){
+			f = -180 + (f - 180);
+		} else if(f < -180){
+			f = 180 - (MathHelper.abs(f) - 180);
+		}
 
+		setYaw(f);
+	}
 	public boolean startControlling(BlockPos controlsLocalPos, PlayerEntity player) {
 		if (player == null || player.isSpectator())
 			return false;
