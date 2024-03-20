@@ -54,6 +54,7 @@ import net.minecraft.world.event.GameEvent;
 import java.util.Collection;
 import java.util.List;
 
+import static eu.ansquare.squaremobility.Squaremobility.LOGGER;
 public class MobileContraptionEntity extends OrientedContraptionEntity {
 	public MobileContraptionEntity(EntityType<?> type, World world) {
 		super(type, world);
@@ -282,14 +283,14 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		forwardSpeed= MathHelper.clamp(forwardSpeed, -10, 10);
 
 		float wheelBase = 3.0f;
-		Vec3d vec3d = getVelocity().add(targetSpeed, 0, 0);
+		Vec3d vec3d = new Vec3d(0, 0, targetSpeed);
 
-		if(steerAngle != 0) {
+		if(steerAngle != 0.0f) {
 			float turningRadius = wheelBase / MathHelper.sin((float) Math.toRadians(steerAngle));
 			float distanceInTick = (float) (vec3d.length() * tickDuration);
 			float f = distanceInTick / turningRadius;
 			float velocityAngleChange = (float) Math.toDegrees(Math.asin(distanceInTick / turningRadius));
-			Squaremobility.LOGGER.info("angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
+			LOGGER.info("angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
 			setYaw(MathHelper.clamp(getYaw() + velocityAngleChange, -180, 180));
 			//vec3d = vec3d.rotateY(velocityAngleChange);
 
@@ -297,12 +298,13 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 
 
 		}
+		vec3d = VecHelper.rotate(vec3d, getYaw(), Direction.Axis.Y);
 
 		setVelocity(vec3d);
 		velocityModified = true;
 
 		boolean spaceDown = heldControls.contains(4);
-
+		if(spaceDown) LOGGER.info(getContraption().getActors().size() + " actors");
 
 		return true;
 	}
