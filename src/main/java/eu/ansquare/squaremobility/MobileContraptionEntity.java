@@ -291,7 +291,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 			float f = distanceInTick / turningRadius;
 			float velocityAngleChange = (float) Math.toDegrees(Math.asin(distanceInTick / turningRadius));
 			LOGGER.info("angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
-			setYaw(MathHelper.clamp(getYaw() + velocityAngleChange, -180, 180));
+			setYaw(MathHelper.clamp(steerAngle, -180, 180));
 			//vec3d = vec3d.rotateY(velocityAngleChange);
 
 		} else {
