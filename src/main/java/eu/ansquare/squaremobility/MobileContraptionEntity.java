@@ -32,6 +32,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MovementType;
+import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.registry.tag.BlockTags;
@@ -63,7 +64,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 	float steerAngle = 0;
 	float forwardSpeed = 0;
 	float tickDuration = 1/20f;
-
+	private Direction initialFacing = Direction.SOUTH;
 	@Override
 	protected void tickContraption() {
 		super.tickContraption();
@@ -221,7 +222,14 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		localPos = VecHelper.rotate(localPos, -this.getPitch(partialTicks), this.getInitialOrientation().getAxis() == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X);
 		return localPos;
 	}
-
+	public void setIntialFacing(Direction facing){
+		if(facing.getAxis().isHorizontal()){
+			initialFacing = facing;
+		}
+	}
+	public Direction getInitialFacing(){
+		return this.initialFacing;
+	}
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void applyLocalTransforms(MatrixStack matrixStack, float partialTicks) {
@@ -294,25 +302,27 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 			LOGGER.info("angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
 			//vec3d = vec3d.rotateY(velocityAngleChange);
 			rotateYaw(targetSteer);
-			player.sendMessage(Text.literal("Yaw :" + getYaw()), true);
 
 		} else {
 
 
 		}
 
-		vec3d = VecHelper.rotate(vec3d, getYaw(), Direction.Axis.Y);
+		vec3d = getRotatedVelocity(targetSpeed, getGlobalYaw());
 
 		setVelocity(vec3d);
 		velocityModified = true;
 
 		boolean spaceDown = heldControls.contains(4);
-		if(spaceDown) LOGGER.info(getContraption().getActors().size() + " actors");
+		if(spaceDown) 	player.sendMessage(Text.literal("Velocity : " + vec3d.toString() + " Global : " + getGlobalYaw()), true);
 
 		return true;
 	}
 	/** Don't call for yaw greater than 360 or lesser than -360 it may break**/
 	public void rotateYaw(float yaw){
+		setYaw(getRotatedYaw(yaw));
+	}
+	public float getRotatedYaw(float yaw){
 		float f = getYaw() + yaw;
 		if(f > 180){
 			f = -180 + (f - 180);
@@ -320,22 +330,54 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 			f = 180 - (MathHelper.abs(f) - 180);
 		}
 
-		setYaw(f);
+		return f;
+	}
+	public static Vec3d getRotatedVelocity(float forwardSpeed, float yaw){
+		float f = (float) (yaw / 180f * Math.PI);
+		float sin = MathHelper.sin(f);
+		float cos = MathHelper.cos(f);
+		return new Vec3d(forwardSpeed* sin, 0, forwardSpeed * cos);
 	}
 	public boolean startControlling(BlockPos controlsLocalPos, PlayerEntity player) {
 		if (player == null || player.isSpectator())
 			return false;
 		return true;
 	}
+	public float getGlobalYaw(){
+		switch (getInitialFacing()){
+			case NORTH -> {
+				return getRotatedYaw(180f);
+			}
 
+			case WEST -> {
+				return getRotatedYaw(90f);
+			}
+
+			case EAST -> {
+				return getRotatedYaw(-90);
+			}
+
+			default -> {
+				return getYaw();
+			}
+		}
+	}
 	public void stopRiding() {
 		this.dismountVehicle();
+	}
+
+	@Override
+	public void onTrackedDataUpdate(TrackedData<?> key) {
+		if (POSE.equals(key)) {
+			this.calculateDimensions();
+		}
 	}
 
 	public static MobileContraptionEntity create(World world, Contraption contraption, Direction initialOrientation) {
 		MobileContraptionEntity entity = new MobileContraptionEntity(ModEntityTypes.MOBILE_CONTRAPTION.get(), world);
 		entity.setContraption(contraption);
-
+		entity.setIntialFacing(initialOrientation);
+		//entity.startAtInitialYaw();
 		return entity;
 	}
 }
