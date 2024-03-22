@@ -333,7 +333,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		return f;
 	}
 	public static Vec3d getRotatedVelocity(float forwardSpeed, float yaw){
-		float f = (float) (yaw / 180f * Math.PI);
+		float f = (float) Math.toRadians(yaw);
 		float sin = MathHelper.sin(f);
 		float cos = MathHelper.cos(f);
 		return new Vec3d(forwardSpeed* sin, 0, forwardSpeed * cos);
