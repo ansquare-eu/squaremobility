@@ -19,6 +19,7 @@ import com.simibubi.create.content.trains.station.GlobalStation;
 import com.simibubi.create.foundation.utility.Color;
 import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.VecHelper;
 
 import com.simibubi.create.infrastructure.config.AllConfigs;
@@ -35,6 +36,8 @@ import net.minecraft.entity.MovementType;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.structure.Structure;
@@ -65,6 +68,19 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 	float forwardSpeed = 0;
 	float tickDuration = 1/20f;
 	private Direction initialFacing = Direction.SOUTH;
+	@Override
+	protected void writeAdditional(NbtCompound compound, boolean spawnPacket) {
+		super.writeAdditional(compound, spawnPacket);
+		NBTHelper.writeEnum(compound, "InitialFacing", initialFacing);
+
+	}
+
+	@Override
+	protected void readAdditional(NbtCompound compound, boolean spawnPacket) {
+		super.readAdditional(compound, spawnPacket);
+		setIntialFacing(NBTHelper.readEnum(compound, "InitialFacing", Direction.class));
+	}
+
 	@Override
 	protected void tickContraption() {
 		super.tickContraption();
@@ -274,10 +290,10 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 			targetSteer++;
 		if (heldControls.contains(2))
 			targetSteer--;
-/*		if(targetSteer == 0 && steerAngle != 0){
+		if(targetSteer == 0 && steerAngle != 0){
 			if(steerAngle > 0) steerAngle -= 0.5;
 			if(steerAngle < 0) steerAngle += 0.5;
-		}*/
+		}
 		if(targetSpeed == 0 && forwardSpeed != 0){
 			if(forwardSpeed > 0) forwardSpeed -= 0.5;
 			if(forwardSpeed < 0) forwardSpeed += 0.5;
@@ -301,7 +317,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 			float velocityAngleChange = (float) Math.toDegrees(Math.asin(distanceInTick / turningRadius));
 			LOGGER.info("angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
 			//vec3d = vec3d.rotateY(velocityAngleChange);
-			rotateYaw(targetSteer);
+			rotateYaw(velocityAngleChange);
 
 		} else {
 
@@ -314,7 +330,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		velocityModified = true;
 
 		boolean spaceDown = heldControls.contains(4);
-		if(spaceDown) 	player.sendMessage(Text.literal("Velocity : " + vec3d.toString() + " Global : " + getGlobalYaw()), true);
+		if(spaceDown) 	player.sendMessage(Text.literal("Target : " + steerAngle + " Global : " + getGlobalYaw()), true);
 
 		return true;
 	}
