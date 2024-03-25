@@ -29,10 +29,6 @@ public class VehicleContraption extends Contraption {
 		if (!searchMovedStructure(world, pos, null))
 			return false;
 		addBlock(pos, Pair.of(new Structure.StructureBlockInfo(pos, state, null), null));
-
-
-
-
 		return true;
 	}
 

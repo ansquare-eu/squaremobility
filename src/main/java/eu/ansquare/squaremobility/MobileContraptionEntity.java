@@ -91,7 +91,6 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		this.prevPitch = this.pitch;
 		this.yaw = this.getYaw();
 		this.pitch = this.getPitch();
-
 	}
 	private Vec3d adjustMovementForCollisions(Vec3d movement) {
 		Box box = this.getBoundingBox();
@@ -310,8 +309,8 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		float wheelBase = 3.0f;
 		Vec3d vec3d = new Vec3d(0, 0, targetSpeed);
 
-		if(steerAngle != 0.0f) {
-			float turningRadius = wheelBase / MathHelper.sin((float) Math.toRadians(steerAngle));
+		if(targetSteer != 0.0f) {
+			float turningRadius = wheelBase / MathHelper.sin((float) Math.toRadians(targetSteer * 15));
 			float distanceInTick = (float) (vec3d.length());
 			float f = distanceInTick / turningRadius;
 			float velocityAngleChange = (float) Math.toDegrees(Math.asin(distanceInTick / turningRadius));
@@ -393,7 +392,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		MobileContraptionEntity entity = new MobileContraptionEntity(ModEntityTypes.MOBILE_CONTRAPTION.get(), world);
 		entity.setContraption(contraption);
 		entity.setIntialFacing(initialOrientation);
-		//entity.startAtInitialYaw();
+		contraption.expandBoundsAroundAxis(Direction.Axis.Y);
 		return entity;
 	}
 }
