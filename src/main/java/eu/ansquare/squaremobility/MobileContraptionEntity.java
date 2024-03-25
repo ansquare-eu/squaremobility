@@ -312,7 +312,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 
 		if(steerAngle != 0.0f) {
 			float turningRadius = wheelBase / MathHelper.sin((float) Math.toRadians(steerAngle));
-			float distanceInTick = (float) (vec3d.length() * tickDuration);
+			float distanceInTick = (float) (vec3d.length());
 			float f = distanceInTick / turningRadius;
 			float velocityAngleChange = (float) Math.toDegrees(Math.asin(distanceInTick / turningRadius));
 			LOGGER.info("angle is " + steerAngle + " velocity angle change " + velocityAngleChange);
