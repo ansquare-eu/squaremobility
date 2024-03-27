@@ -91,6 +91,7 @@ public class MobileContraptionEntity extends OrientedContraptionEntity {
 		this.prevPitch = this.pitch;
 		this.yaw = this.getYaw();
 		this.pitch = this.getPitch();
+		((VehicleContraption) contraption).rotateBounds(getGlobalYaw());
 	}
 	private Vec3d adjustMovementForCollisions(Vec3d movement) {
 		Box box = this.getBoundingBox();
